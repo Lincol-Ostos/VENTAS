@@ -22,32 +22,90 @@
       </div>
     </nav>
 
-    <!-- GIFT CARD DEL PRODUCTO -->
-    <div class="gift-card-wrapper" role="img" aria-label="Netflix Premium – Gift Card">
-      <!-- Fondo (reemplaza por <img src="tu-imagen.jpg" class="gift-card-bg" alt=""> si tienes imagen propia) -->
-      <!--<div class="gift-card-bg"></div>-->
+    <!-- CATÁLOGO DE PRODUCTOS -->
+    <div class="catalog-grid" id="catalogGrid">
 
-      <img src="NPOSTER02.jpg" alt="Fondo de tarjeta de regalo Netflix Premium" class="gift-card-bg" />
-      <div class="gift-card-overlay"></div>
-      <div class="gift-card-content">
-        <div class="gc-row-top">
-          <!--<div class="gc-chip" aria-hidden="true"></div>-->
-          <div class="stock-badge" id="stockBadge">✦ 5 disponibles</div>
+      <!-- PRODUCTO: Netflix Premium -->
+      <div class="product-card"
+           role="button"
+           tabindex="0"
+           aria-pressed="false"
+           data-id="netflix-premium"
+           data-name="Netflix Premium"
+           data-price="15">
+        <img src="NPOSTER02.jpg" alt="Netflix Premium" class="gift-card-bg" />
+        <div class="gift-card-overlay"></div>
+        <div class="select-check" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
         </div>
-        <div class="gc-row-mid">
-          <h1 class="product-title">Netflix Premium</h1>
-        </div>
-        <div class="gc-row-bottom">
-          <div class="gc-sub-block">
-            <p class="product-sub">Perfil 2 dispositivos como máximo no al mismo tiempo</p>
-            <p class="gc-type">Perfil exclusivo · 4K UHD</p>
+        <div class="gift-card-content">
+          <div class="gc-row-top">
+            <div class="stock-badge">✦ 5 disponibles</div>
           </div>
-          <div class="price-block">
-            <span class="price-currency">S/</span>
-            <span class="price-amount">15</span>
-            <span class="price-period">/ 30 días</span>
+          <div class="gc-row-mid">
+            <h1 class="product-title">Netflix Premium</h1>
+          </div>
+          <div class="gc-row-bottom">
+            <div class="gc-sub-block">
+              <p class="product-sub">Perfil 2 dispositivos como máximo no al mismo tiempo</p>
+              <p class="gc-type">Perfil exclusivo · 4K UHD</p>
+            </div>
+            <div class="price-block">
+              <span class="price-currency">S/</span>
+              <span class="price-amount">15</span>
+              <span class="price-period">/ 30 días</span>
+            </div>
           </div>
         </div>
+      </div>
+
+      <!-- PRODUCTO: Disney+ Premium -->
+      <div class="product-card"
+           role="button"
+           tabindex="0"
+           aria-pressed="false"
+           data-id="disney-premium"
+           data-name="Disney+ Premium"
+           data-price="12">
+        <img src="NPOSTER02.jpg" alt="Disney+ Premium" class="gift-card-bg" />
+        <div class="gift-card-overlay"></div>
+        <div class="select-check" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="gift-card-content">
+          <div class="gc-row-top">
+            <div class="stock-badge">✦ 8 disponibles</div>
+          </div>
+          <div class="gc-row-mid">
+            <h1 class="product-title">Disney+ Premium</h1>
+          </div>
+          <div class="gc-row-bottom">
+            <div class="gc-sub-block">
+              <p class="product-sub">Perfil 2 dispositivos como máximo no al mismo tiempo</p>
+              <p class="gc-type">Perfil exclusivo · 4K UHD</p>
+            </div>
+            <div class="price-block">
+              <span class="price-currency">S/</span>
+              <span class="price-amount">12</span>
+              <span class="price-period">/ 30 días</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RESUMEN DE COMPRA / CANASTA -->
+    <div class="section-card summary-card" id="summaryCard">
+      <p class="section-label">Resumen de tu compra</p>
+      <div class="summary-list" id="summaryList"><!-- items inyectados por JS --></div>
+      <div class="summary-total-row">
+        <span class="summary-total-label">Monto Total a Pagar</span>
+        <span class="summary-total-amount" id="summaryTotal">S/ 0</span>
       </div>
     </div>
 
@@ -115,6 +173,8 @@
                pattern="[0-9]{4}" autocomplete="off" />
         <p class="error-msg" id="errorPin">El PIN debe tener exactamente 4 dígitos.</p>
       </div>
+
+      <p class="error-msg" id="errorCarrito">Por favor selecciona al menos un producto del catálogo.</p>
     </div>
 
     <!-- BOTÓN PRINCIPAL -->

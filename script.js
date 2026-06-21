@@ -4,9 +4,17 @@
 
 /* ── Configuración ───────────────────────────────────────── */
 const WA_NUMBER = '943621317';   // ← cambia por tu número real (sin +)
-const PRODUCTO  = 'Netflix Premium – Perfil S/ 15 x 30días';
+
+/* ── Estado: carrito de compras ──────────────────────────── */
+// Cada item: { id, name, price }
+let carrito = [];
 
 /* ── Referencias DOM ─────────────────────────────────────── */
+const productCards  = document.querySelectorAll('.product-card');
+const summaryCard    = document.getElementById('summaryCard');
+const summaryList    = document.getElementById('summaryList');
+const summaryTotalEl = document.getElementById('summaryTotal');
+
 const btnToggle   = document.getElementById('btnTogglePay');
 const qrPanel     = document.getElementById('qrPanel');
 const fileInput   = document.getElementById('fileInput');
@@ -17,9 +25,77 @@ const inputPin    = document.getElementById('inputPin');
 const btnEnviar   = document.getElementById('btnEnviar');
 const toast       = document.getElementById('toast');
 
-const errNombre = document.getElementById('errorNombre');
-const errPin    = document.getElementById('errorPin');
-const errFile   = document.getElementById('errorFile');
+const errNombre  = document.getElementById('errorNombre');
+const errPin     = document.getElementById('errorPin');
+const errFile    = document.getElementById('errorFile');
+const errCarrito = document.getElementById('errorCarrito');
+
+/* ── Catálogo: selección de productos (carrito) ──────────── */
+productCards.forEach(card => {
+  card.addEventListener('click', () => toggleProducto(card));
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleProducto(card);
+    }
+  });
+});
+
+function toggleProducto(card) {
+  const id    = card.dataset.id;
+  const name  = card.dataset.name;
+  const price = parseFloat(card.dataset.price);
+
+  const idx = carrito.findIndex(item => item.id === id);
+
+  if (idx === -1) {
+    // Añadir al carrito
+    carrito.push({ id, name, price });
+    card.classList.add('selected');
+    card.setAttribute('aria-pressed', 'true');
+  } else {
+    // Remover del carrito
+    carrito.splice(idx, 1);
+    card.classList.remove('selected');
+    card.setAttribute('aria-pressed', 'false');
+  }
+
+  hideError(errCarrito);
+  renderSummary();
+}
+
+/* ── Renderizar resumen / totalizador en tiempo real ─────── */
+function renderSummary() {
+  const total = carrito.reduce((sum, item) => sum + item.price, 0);
+
+  // Construir lista de items
+  summaryList.innerHTML = carrito.map(item => `
+    <div class="summary-item">
+      <span class="summary-item-name">${escapeHTML(item.name)}</span>
+      <span class="summary-item-price">S/ ${item.price.toFixed(0)}</span>
+    </div>
+  `).join('');
+
+  summaryTotalEl.textContent = 'S/ ' + total.toFixed(0);
+
+  // Mostrar / ocultar con transición de opacidad suave
+  if (carrito.length > 0) {
+    summaryCard.classList.add('visible');
+    // Forzar reflow para que la transición de opacidad se aplique
+    requestAnimationFrame(() => summaryCard.classList.add('show'));
+  } else {
+    summaryCard.classList.remove('show');
+    setTimeout(() => {
+      if (carrito.length === 0) summaryCard.classList.remove('visible');
+    }, 350);
+  }
+}
+
+function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
 
 /* ── Toggle panel QR ─────────────────────────────────────── */
 btnToggle.addEventListener('click', () => {
@@ -73,11 +149,20 @@ btnEnviar.addEventListener('click', () => {
   let valido = true;
 
   // Limpiar errores previos
-  [errNombre, errPin, errFile].forEach(hideError);
+  [errNombre, errPin, errFile, errCarrito].forEach(hideError);
 
   const nombre  = inputNombre.value.trim();
   const pin     = inputPin.value.trim();
   const archivo = fileInput.files[0];
+
+  // Validar carrito (al menos 1 producto)
+  if (carrito.length === 0) {
+    showError(errCarrito);
+    showToast('⚠️  Selecciona al menos un producto del catálogo');
+    document.getElementById('catalogGrid')
+      .scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return; // Detiene el envío de inmediato
+  }
 
   // Validar nombre
   if (!nombre) {
@@ -97,9 +182,9 @@ btnEnviar.addEventListener('click', () => {
       qrPanel.classList.add('open');
       btnToggle.classList.add('active');
       btnToggle.setAttribute('aria-expanded', 'true');
-      setTimeout(() => qrPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
     }
     showError(errFile);
+    setTimeout(() => qrPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
     valido = false;
   }
 
@@ -108,16 +193,25 @@ btnEnviar.addEventListener('click', () => {
     return;
   }
 
+  /* ── Construir desglose de productos y total ────────────── */
+  const total = carrito.reduce((sum, item) => sum + item.price, 0);
+  const desglose = carrito
+    .map(item => '• ' + item.name + ' (S/ ' + item.price.toFixed(2) + ')')
+    .join('%0A');
+
   /* ── Construir mensaje de WhatsApp ──────────────────────── */
   const msg = [
     '🎬 *SOLICITUD DE ACTIVACIÓN — StreamVault*',
     '',
     '👤 *Nombre:* ' + nombre,
     '🔑 *PIN de perfil:* ' + pin,
-    '📦 *Producto:* ' + PRODUCTO,
+    '📦 *Productos en la Canasta:*',
+    desglose,
+    '',
+    '💰 *Monto Total Pagado:* S/ ' + total.toFixed(2),
     '',
     '✅ *El pago ya fue realizado.*',
-    '📎 *(Adjunto el comprobante en el chat)*',
+    '📎 *(Adjunto el comprobante en este chat de WhatsApp)*',
     '',
     '_Gracias, espero confirmación_ 🙌',
   ].join('%0A');
