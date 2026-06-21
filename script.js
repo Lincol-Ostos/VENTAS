@@ -10,7 +10,7 @@ const WA_NUMBER = '943621317';   // ← cambia por tu número real (sin +)
 let carrito = [];
 
 /* ── Referencias DOM ─────────────────────────────────────── */
-const productCards  = document.querySelectorAll('.product-card');
+const productCards   = document.querySelectorAll('.product-card');
 const summaryCard    = document.getElementById('summaryCard');
 const summaryList    = document.getElementById('summaryList');
 const summaryTotalEl = document.getElementById('summaryTotal');
@@ -78,10 +78,9 @@ function renderSummary() {
 
   summaryTotalEl.textContent = 'S/ ' + total.toFixed(0);
 
-  // Mostrar / ocultar con transición de opacidad suave
+  // Revelación progresiva: fade-in slide solo si hay items en la canasta
   if (carrito.length > 0) {
     summaryCard.classList.add('visible');
-    // Forzar reflow para que la transición de opacidad se aplique
     requestAnimationFrame(() => summaryCard.classList.add('show'));
   } else {
     summaryCard.classList.remove('show');
@@ -146,23 +145,24 @@ inputPin.addEventListener('input', () => {
 
 /* ── Validación y envío por WhatsApp ─────────────────────── */
 btnEnviar.addEventListener('click', () => {
-  let valido = true;
-
   // Limpiar errores previos
   [errNombre, errPin, errFile, errCarrito].forEach(hideError);
 
-  const nombre  = inputNombre.value.trim();
-  const pin     = inputPin.value.trim();
-  const archivo = fileInput.files[0];
-
-  // Validar carrito (al menos 1 producto)
+  /* ── CANDADO 1: carrito vacío ──────────────────────────── */
+  // Si la canasta está vacía, se interrumpe el flujo de inmediato.
   if (carrito.length === 0) {
     showError(errCarrito);
     showToast('⚠️  Selecciona al menos un producto del catálogo');
     document.getElementById('catalogGrid')
       .scrollIntoView({ behavior: 'smooth', block: 'start' });
-    return; // Detiene el envío de inmediato
+    return;
   }
+
+  const nombre  = inputNombre.value.trim();
+  const pin     = inputPin.value.trim();
+  const archivo = fileInput.files[0];
+
+  let valido = true;
 
   // Validar nombre
   if (!nombre) {
@@ -176,7 +176,9 @@ btnEnviar.addEventListener('click', () => {
     valido = false;
   }
 
-  // Validar comprobante adjunto
+  /* ── CANDADO 2: comprobante de pago obligatorio ────────── */
+  // Hay productos seleccionados pero falta el archivo: se abre el
+  // panel QR automáticamente, se hace scroll y se enfoca el campo.
   if (!archivo) {
     if (!qrPanel.classList.contains('open')) {
       qrPanel.classList.add('open');
@@ -184,7 +186,10 @@ btnEnviar.addEventListener('click', () => {
       btnToggle.setAttribute('aria-expanded', 'true');
     }
     showError(errFile);
-    setTimeout(() => qrPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+    setTimeout(() => {
+      qrPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      fileDrop.focus();
+    }, 80);
     valido = false;
   }
 
@@ -199,21 +204,16 @@ btnEnviar.addEventListener('click', () => {
     .map(item => '• ' + item.name + ' (S/ ' + item.price.toFixed(2) + ')')
     .join('%0A');
 
-  /* ── Construir mensaje de WhatsApp ──────────────────────── */
+  /* ── Construir mensaje de WhatsApp (formato exacto) ─────── */
   const msg = [
     '🎬 *SOLICITUD DE ACTIVACIÓN — StreamVault*',
-    '',
     '👤 *Nombre:* ' + nombre,
     '🔑 *PIN de perfil:* ' + pin,
     '📦 *Productos en la Canasta:*',
     desglose,
-    '',
     '💰 *Monto Total Pagado:* S/ ' + total.toFixed(2),
-    '',
     '✅ *El pago ya fue realizado.*',
     '📎 *(Adjunto el comprobante en este chat de WhatsApp)*',
-    '',
-    '_Gracias, espero confirmación_ 🙌',
   ].join('%0A');
 
   const url = 'https://wa.me/' + WA_NUMBER + '?text=' + msg;

@@ -22,10 +22,10 @@
       </div>
     </nav>
 
-    <!-- CATÁLOGO DE PRODUCTOS -->
+    <!-- CATÁLOGO DE PRODUCTOS — Bento Box asimétrico -->
     <div class="catalog-grid" id="catalogGrid">
 
-      <!-- PRODUCTO: Netflix Premium -->
+      <!-- PRODUCTO 1: Netflix Premium -->
       <div class="product-card"
            role="button"
            tabindex="0"
@@ -33,35 +33,32 @@
            data-id="netflix-premium"
            data-name="Netflix Premium"
            data-price="15">
-        <img src="NPOSTER02.jpg" alt="Netflix Premium" class="gift-card-bg" />
-        <div class="gift-card-overlay"></div>
         <div class="select-check" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </div>
         <div class="gift-card-content">
           <div class="gc-row-top">
-            <div class="stock-badge">✦ 5 disponibles</div>
+            <div class="stock-badge">5 disponibles</div>
           </div>
           <div class="gc-row-mid">
             <h1 class="product-title">Netflix Premium</h1>
           </div>
           <div class="gc-row-bottom">
             <div class="gc-sub-block">
-              <p class="product-sub">Perfil 2 dispositivos como máximo no al mismo tiempo</p>
               <p class="gc-type">Perfil exclusivo · 4K UHD</p>
             </div>
             <div class="price-block">
               <span class="price-currency">S/</span>
               <span class="price-amount">15</span>
-              <span class="price-period">/ 30 días</span>
+              <span class="price-period">/ 30d</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- PRODUCTO: Disney+ Premium -->
+      <!-- PRODUCTO 2: Disney+ Premium -->
       <div class="product-card"
            role="button"
            tabindex="0"
@@ -69,29 +66,57 @@
            data-id="disney-premium"
            data-name="Disney+ Premium"
            data-price="12">
-        <img src="NPOSTER02.jpg" alt="Disney+ Premium" class="gift-card-bg" />
-        <div class="gift-card-overlay"></div>
         <div class="select-check" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </div>
         <div class="gift-card-content">
           <div class="gc-row-top">
-            <div class="stock-badge">✦ 8 disponibles</div>
+            <div class="stock-badge">8 disponibles</div>
           </div>
           <div class="gc-row-mid">
             <h1 class="product-title">Disney+ Premium</h1>
           </div>
           <div class="gc-row-bottom">
             <div class="gc-sub-block">
-              <p class="product-sub">Perfil 2 dispositivos como máximo no al mismo tiempo</p>
               <p class="gc-type">Perfil exclusivo · 4K UHD</p>
             </div>
             <div class="price-block">
               <span class="price-currency">S/</span>
               <span class="price-amount">12</span>
-              <span class="price-period">/ 30 días</span>
+              <span class="price-period">/ 30d</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTO 3: Combo Especial — ocupa el 100% del ancho -->
+      <div class="product-card is-combo"
+           role="button"
+           tabindex="0"
+           aria-pressed="false"
+           data-id="combo-especial"
+           data-name="Combo Especial Netflix + Disney+"
+           data-price="24">
+        <div class="select-check" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="gift-card-content">
+          <div class="gc-row-mid">
+            <h1 class="product-title">Combo Especial</h1>
+          </div>
+          <div class="gc-row-bottom">
+            <span class="combo-save">Ahorra S/ 3</span>
+            <div class="gc-sub-block">
+              <p class="gc-type">Netflix + Disney+ · 4K UHD</p>
+            </div>
+            <div class="price-block">
+              <span class="price-currency">S/</span>
+              <span class="price-amount">24</span>
+              <span class="price-period">/ 30d</span>
             </div>
           </div>
         </div>
@@ -129,16 +154,14 @@
       <div class="qr-panel" id="qrPanel" role="region" aria-label="Datos de pago">
         <div class="qr-frame">
           <div class="qr-inner">
-            <!-- QR simulado en SVG — reemplaza por <img src="tu-qr.png"> con tu QR real -->
             <div class="qr-svg-wrapper" title="Escanea para pagar por Plin">
-            <img src="QRPAY.jpeg" alt="Código QR para pago por Plin" class="qr-svg"  width="200" height="200"/>
+              <img src="QRPAY.jpeg" alt="Código QR para pago por Plin" class="qr-svg" width="200" height="200" />
             </div>
             <div class="qr-caption">
               <strong>Escanea y paga por Plin</strong>
               O transfiere directamente a este número:
             </div>
             <div class="qr-wallet">💳 &nbsp;943 621 317 &nbsp;— &nbsp;Lincol Ostos.</div>
-            <!-- <div class="qr-wallet" style="margin-top:8px;">🏦 &nbsp;</div> -->
           </div>
         </div>
 
