@@ -6,11 +6,11 @@
   <title>StreamVault — Cuentas Premium</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
+
   <div class="page-wrapper">
 
     <!-- NAVBAR -->
@@ -22,114 +22,90 @@
       </div>
     </nav>
 
-    <!-- CATÁLOGO DE PRODUCTOS — Bento Box asimétrico -->
-    <div class="catalog-grid" id="catalogGrid">
+    <!-- BENTO GRID — CATÁLOGO -->
+    <section class="catalog-label">
+      <span>Elige tu plan</span>
+    </section>
 
-      <!-- PRODUCTO 1: Netflix Premium -->
-      <div class="product-card"
-           role="button"
-           tabindex="0"
-           aria-pressed="false"
-           data-id="netflix-premium"
-           data-name="Netflix Premium"
-           data-price="15">
-        <div class="select-check" aria-hidden="true">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
+    <div class="bento-grid">
+
+      <!-- PRODUCTO 1 — Netflix Premium -->
+      <div class="bento-card" data-id="netflix" data-name="Netflix Premium" data-price="15" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
+        <div class="bento-visual">
+          <img src="NPOSTER02.jpg" alt="Netflix Premium" class="bento-img" />
+          <div class="bento-fade"></div>
+          <div class="bento-stock" id="stockNetflix">✦ 5 disp.</div>
+          <div class="bento-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
         </div>
-        <div class="gift-card-content">
-          <div class="gc-row-top">
-            <div class="stock-badge">5 disponibles</div>
-          </div>
-          <div class="gc-row-mid">
-            <h1 class="product-title">Netflix Premium</h1>
-          </div>
-          <div class="gc-row-bottom">
-            <div class="gc-sub-block">
-              <p class="gc-type">Perfil exclusivo · 4K UHD</p>
-            </div>
-            <div class="price-block">
-              <span class="price-currency">S/</span>
-              <span class="price-amount">15</span>
-              <span class="price-period">/ 30d</span>
-            </div>
+        <div class="bento-data">
+          <div class="bento-brand">Netflix</div>
+          <div class="bento-tier">Premium</div>
+          <p class="bento-restriction">Límite 1 disp. • No uso simultáneo</p>
+          <div class="bento-price-row">
+            <span class="b-currency">S/</span>
+            <span class="b-amount">15</span>
+            <span class="b-period">/ 30 días</span>
           </div>
         </div>
       </div>
 
-      <!-- PRODUCTO 2: Disney+ Premium -->
-      <div class="product-card"
-           role="button"
-           tabindex="0"
-           aria-pressed="false"
-           data-id="disney-premium"
-           data-name="Disney+ Premium"
-           data-price="12">
-        <div class="select-check" aria-hidden="true">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
+      <!-- PRODUCTO 2 — HBO Max -->
+      <div class="bento-card" data-id="hbo" data-name="HBO Max Premium" data-price="12" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
+        <div class="bento-visual">
+          <img src="HPOSTER01.jpg" alt="HBO Max Premium" class="bento-img" />
+          <div class="bento-fade"></div>
+          <div class="bento-stock">✦ 3 disp.</div>
+          <div class="bento-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
         </div>
-        <div class="gift-card-content">
-          <div class="gc-row-top">
-            <div class="stock-badge">8 disponibles</div>
-          </div>
-          <div class="gc-row-mid">
-            <h1 class="product-title">Disney+ Premium</h1>
-          </div>
-          <div class="gc-row-bottom">
-            <div class="gc-sub-block">
-              <p class="gc-type">Perfil exclusivo · 4K UHD</p>
-            </div>
-            <div class="price-block">
-              <span class="price-currency">S/</span>
-              <span class="price-amount">12</span>
-              <span class="price-period">/ 30d</span>
-            </div>
+        <div class="bento-data">
+          <div class="bento-brand">HBO Max</div>
+          <div class="bento-tier">Premium</div>
+          <p class="bento-restriction">Límite 1 disp. • Reproducción HD/4K</p>
+          <div class="bento-price-row">
+            <span class="b-currency">S/</span>
+            <span class="b-amount">12</span>
+            <span class="b-period">/ 30 días</span>
           </div>
         </div>
       </div>
 
-      <!-- PRODUCTO 3: Combo Especial — ocupa el 100% del ancho -->
-      <div class="product-card is-combo"
-           role="button"
-           tabindex="0"
-           aria-pressed="false"
-           data-id="combo-especial"
-           data-name="Combo Especial Netflix + Disney+"
-           data-price="24">
-        <div class="select-check" aria-hidden="true">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        </div>
-        <div class="gift-card-content">
-          <div class="gc-row-mid">
-            <h1 class="product-title">Combo Especial</h1>
+      <!-- PRODUCTO 3 — Combo (full width) -->
+      <div class="bento-card bento-wide" data-id="combo" data-name="Combo Netflix + HBO Max" data-price="25" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
+        <div class="bento-visual bento-visual-wide">
+          <img src="COMBO01.jpg" alt="Combo Netflix + HBO Max" class="bento-img" />
+          <div class="bento-fade"></div>
+          <div class="bento-combo-badge">✦ Combo Especial</div>
+          <div class="bento-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
           </div>
-          <div class="gc-row-bottom">
-            <span class="combo-save">Ahorra S/ 3</span>
-            <div class="gc-sub-block">
-              <p class="gc-type">Netflix + Disney+ · 4K UHD</p>
-            </div>
-            <div class="price-block">
-              <span class="price-currency">S/</span>
-              <span class="price-amount">24</span>
-              <span class="price-period">/ 30d</span>
-            </div>
+        </div>
+        <div class="bento-data bento-data-wide">
+          <div>
+            <div class="bento-brand">Netflix <span class="bento-plus">+</span> HBO Max</div>
+            <div class="bento-tier">Combo Premium</div>
+            <p class="bento-restriction">Cuentas estables • Máxima resolución</p>
+          </div>
+          <div class="bento-price-row">
+            <span class="b-currency">S/</span>
+            <span class="b-amount">25</span>
+            <span class="b-period">/ 30 días</span>
           </div>
         </div>
       </div>
 
-    </div>
+    </div><!-- /bento-grid -->
 
-    <!-- RESUMEN DE COMPRA / CANASTA -->
-    <div class="section-card summary-card" id="summaryCard">
-      <p class="section-label">Resumen de tu compra</p>
-      <div class="summary-list" id="summaryList"><!-- items inyectados por JS --></div>
+    <!-- RESUMEN DE COMPRA (oculto hasta selección) -->
+    <div class="summary-card" id="summaryCard" aria-live="polite">
+      <p class="section-label">Resumen de compra</p>
+      <div class="summary-lines" id="summaryLines"></div>
+      <div class="summary-divider"></div>
       <div class="summary-total-row">
-        <span class="summary-total-label">Monto Total a Pagar</span>
+        <span class="summary-total-label">Total</span>
         <span class="summary-total-amount" id="summaryTotal">S/ 0</span>
       </div>
     </div>
@@ -183,7 +159,7 @@
       <p class="section-label">Tus datos</p>
 
       <div class="form-group">
-        <label class="form-label" for="inputNombre">Tu nombre completo</label>
+        <label class="form-label" for="inputNombre">Nombre completo</label>
         <input class="form-input" type="text" id="inputNombre" name="nombre"
                placeholder="Ej. Juan Pérez" autocomplete="off" maxlength="60" />
         <p class="error-msg" id="errorNombre">Por favor ingresa tu nombre.</p>
@@ -191,13 +167,11 @@
 
       <div class="form-group">
         <label class="form-label" for="inputPin">PIN de 4 dígitos para tu perfil</label>
-        <input class="form-input" type="tel" id="inputPin" name="pin"
-               placeholder="••••" maxlength="4" inputmode="numeric"
+        <input class="form-input pin-input" type="tel" id="inputPin" name="pin"
+               placeholder="• • • •" maxlength="4" inputmode="numeric"
                pattern="[0-9]{4}" autocomplete="off" />
         <p class="error-msg" id="errorPin">El PIN debe tener exactamente 4 dígitos.</p>
       </div>
-
-      <p class="error-msg" id="errorCarrito">Por favor selecciona al menos un producto del catálogo.</p>
     </div>
 
     <!-- BOTÓN PRINCIPAL -->
@@ -209,13 +183,29 @@
       Confirmar y enviar por WhatsApp
     </button>
 
+    <!-- TÉRMINOS DE SERVICIO (Acordeón) -->
+    <div class="tos-wrapper">
+      <button class="tos-toggle" id="tosToggle" type="button" aria-expanded="false">
+        <span>Garantía y Términos de Servicio</span>
+        <svg class="tos-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+      <div class="tos-panel" id="tosPanel">
+        <div class="tos-body">
+          <p class="tos-item"><span class="tos-dot"></span>Garantía de <strong>reactivación completa</strong> durante todo el periodo contratado.</p>
+          <p class="tos-item"><span class="tos-dot"></span>Es <strong>obligatorio reportar fallos de inmediato</strong> para que la garantía sea válida. No se otorgan reembolsos ni extensiones por días caídos no reportados a tiempo.</p>
+          <p class="tos-item"><span class="tos-dot"></span>Los días de inactividad compensados <strong>corren estrictamente desde el momento exacto del reporte validado</strong>, sin efecto retroactivo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">StreamVault · Entregas automáticas 24/7 &nbsp;·&nbsp; <span>©</span> 2025</div>
+
   </div><!-- /page-wrapper -->
 
   <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
-
-  <div class="page-wrapper">
-    <div class="footer">StreamVault · Entregas automáticas 24/7 &nbsp;·&nbsp; <span style="color:#3d3d3d;">©</span> 2025</div>
-  </div>
 
   <script src="script.js"></script>
 </body>

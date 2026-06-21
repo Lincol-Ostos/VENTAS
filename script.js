@@ -1,99 +1,89 @@
 /* ════════════════════════════════════════════════════════════
-   StreamVault — script.js
+   StreamVault — script.js  (Bento Cart Edition)
    ════════════════════════════════════════════════════════════ */
 
 /* ── Configuración ───────────────────────────────────────── */
-const WA_NUMBER = '943621317';   // ← cambia por tu número real (sin +)
+const WA_NUMBER = '943621317';   // ← tu número real (sin +)
 
-/* ── Estado: carrito de compras ──────────────────────────── */
-// Cada item: { id, name, price }
-let carrito = [];
+/* ── Carrito ─────────────────────────────────────────────── */
+// Mapa: id → { name, price, period }
+const cart = new Map();
 
 /* ── Referencias DOM ─────────────────────────────────────── */
-const productCards   = document.querySelectorAll('.product-card');
-const summaryCard    = document.getElementById('summaryCard');
-const summaryList    = document.getElementById('summaryList');
-const summaryTotalEl = document.getElementById('summaryTotal');
+const bentoCards   = document.querySelectorAll('.bento-card');
+const summaryCard  = document.getElementById('summaryCard');
+const summaryLines = document.getElementById('summaryLines');
+const summaryTotal = document.getElementById('summaryTotal');
 
-const btnToggle   = document.getElementById('btnTogglePay');
-const qrPanel     = document.getElementById('qrPanel');
-const fileInput   = document.getElementById('fileInput');
-const fileDrop    = document.getElementById('fileDrop');
-const fileNameEl  = document.getElementById('fileName');
-const inputNombre = document.getElementById('inputNombre');
-const inputPin    = document.getElementById('inputPin');
-const btnEnviar   = document.getElementById('btnEnviar');
-const toast       = document.getElementById('toast');
+const btnToggle    = document.getElementById('btnTogglePay');
+const qrPanel      = document.getElementById('qrPanel');
+const fileInput    = document.getElementById('fileInput');
+const fileDrop     = document.getElementById('fileDrop');
+const fileNameEl   = document.getElementById('fileName');
+const inputNombre  = document.getElementById('inputNombre');
+const inputPin     = document.getElementById('inputPin');
+const btnEnviar    = document.getElementById('btnEnviar');
+const toast        = document.getElementById('toast');
 
-const errNombre  = document.getElementById('errorNombre');
-const errPin     = document.getElementById('errorPin');
-const errFile    = document.getElementById('errorFile');
-const errCarrito = document.getElementById('errorCarrito');
+const errNombre    = document.getElementById('errorNombre');
+const errPin       = document.getElementById('errorPin');
+const errFile      = document.getElementById('errorFile');
 
-/* ── Catálogo: selección de productos (carrito) ──────────── */
-productCards.forEach(card => {
-  card.addEventListener('click', () => toggleProducto(card));
+const tosToggle    = document.getElementById('tosToggle');
+const tosPanel     = document.getElementById('tosPanel');
+
+/* ── Bento Cards — selección de productos ────────────────── */
+bentoCards.forEach(card => {
+  card.addEventListener('click', () => toggleCard(card));
   card.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      toggleProducto(card);
+      toggleCard(card);
     }
   });
 });
 
-function toggleProducto(card) {
-  const id    = card.dataset.id;
-  const name  = card.dataset.name;
-  const price = parseFloat(card.dataset.price);
+function toggleCard(card) {
+  const id     = card.dataset.id;
+  const name   = card.dataset.name;
+  const price  = parseFloat(card.dataset.price);
+  const period = card.dataset.period;
 
-  const idx = carrito.findIndex(item => item.id === id);
-
-  if (idx === -1) {
-    // Añadir al carrito
-    carrito.push({ id, name, price });
-    card.classList.add('selected');
-    card.setAttribute('aria-pressed', 'true');
-  } else {
-    // Remover del carrito
-    carrito.splice(idx, 1);
+  if (cart.has(id)) {
+    cart.delete(id);
     card.classList.remove('selected');
     card.setAttribute('aria-pressed', 'false');
-  }
-
-  hideError(errCarrito);
-  renderSummary();
-}
-
-/* ── Renderizar resumen / totalizador en tiempo real ─────── */
-function renderSummary() {
-  const total = carrito.reduce((sum, item) => sum + item.price, 0);
-
-  // Construir lista de items
-  summaryList.innerHTML = carrito.map(item => `
-    <div class="summary-item">
-      <span class="summary-item-name">${escapeHTML(item.name)}</span>
-      <span class="summary-item-price">S/ ${item.price.toFixed(0)}</span>
-    </div>
-  `).join('');
-
-  summaryTotalEl.textContent = 'S/ ' + total.toFixed(0);
-
-  // Revelación progresiva: fade-in slide solo si hay items en la canasta
-  if (carrito.length > 0) {
-    summaryCard.classList.add('visible');
-    requestAnimationFrame(() => summaryCard.classList.add('show'));
   } else {
-    summaryCard.classList.remove('show');
-    setTimeout(() => {
-      if (carrito.length === 0) summaryCard.classList.remove('visible');
-    }, 350);
+    cart.set(id, { name, price, period });
+    card.classList.add('selected');
+    card.setAttribute('aria-pressed', 'true');
   }
+
+  updateSummary();
 }
 
-function escapeHTML(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
+function updateSummary() {
+  if (cart.size === 0) {
+    summaryCard.classList.remove('visible');
+    return;
+  }
+
+  summaryCard.classList.add('visible');
+  summaryLines.innerHTML = '';
+
+  let total = 0;
+  cart.forEach(({ name, price, period }) => {
+    total += price;
+    const line = document.createElement('div');
+    line.className = 'summary-line';
+    line.innerHTML = `
+      <span class="summary-line-name">${name} <span style="color:var(--text-dim);font-size:11px;">· ${period}</span></span>
+      <span class="summary-line-price">S/ ${price.toFixed(2)}</span>
+    `;
+    summaryLines.appendChild(line);
+  });
+
+  summaryTotal.textContent = `S/ ${total.toFixed(2)}`;
 }
 
 /* ── Toggle panel QR ─────────────────────────────────────── */
@@ -101,7 +91,6 @@ btnToggle.addEventListener('click', () => {
   const isOpen = qrPanel.classList.toggle('open');
   btnToggle.classList.toggle('active', isOpen);
   btnToggle.setAttribute('aria-expanded', isOpen);
-
   if (isOpen) {
     setTimeout(() => qrPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
   }
@@ -121,7 +110,7 @@ fileInput.addEventListener('change', () => {
   }
 });
 
-/* Drag & Drop visual */
+/* Drag & Drop */
 fileDrop.addEventListener('dragover', e => {
   e.preventDefault();
   fileDrop.style.borderColor = 'var(--accent-a)';
@@ -145,24 +134,20 @@ inputPin.addEventListener('input', () => {
 
 /* ── Validación y envío por WhatsApp ─────────────────────── */
 btnEnviar.addEventListener('click', () => {
-  // Limpiar errores previos
-  [errNombre, errPin, errFile, errCarrito].forEach(hideError);
-
-  /* ── CANDADO 1: carrito vacío ──────────────────────────── */
-  // Si la canasta está vacía, se interrumpe el flujo de inmediato.
-  if (carrito.length === 0) {
-    showError(errCarrito);
-    showToast('⚠️  Selecciona al menos un producto del catálogo');
-    document.getElementById('catalogGrid')
-      .scrollIntoView({ behavior: 'smooth', block: 'start' });
-    return;
-  }
+  let valido = true;
+  [errNombre, errPin, errFile].forEach(hideError);
 
   const nombre  = inputNombre.value.trim();
   const pin     = inputPin.value.trim();
   const archivo = fileInput.files[0];
 
-  let valido = true;
+  // Validar carrito
+  if (cart.size === 0) {
+    showToast('⚠️  Elige al menos un producto');
+    // Scroll suave al catálogo
+    document.querySelector('.bento-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
 
   // Validar nombre
   if (!nombre) {
@@ -170,15 +155,13 @@ btnEnviar.addEventListener('click', () => {
     valido = false;
   }
 
-  // Validar PIN (exactamente 4 dígitos)
+  // Validar PIN
   if (!/^\d{4}$/.test(pin)) {
     showError(errPin);
     valido = false;
   }
 
-  /* ── CANDADO 2: comprobante de pago obligatorio ────────── */
-  // Hay productos seleccionados pero falta el archivo: se abre el
-  // panel QR automáticamente, se hace scroll y se enfoca el campo.
+  // Validar comprobante
   if (!archivo) {
     if (!qrPanel.classList.contains('open')) {
       qrPanel.classList.add('open');
@@ -187,9 +170,9 @@ btnEnviar.addEventListener('click', () => {
     }
     showError(errFile);
     setTimeout(() => {
-      qrPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      fileDrop.focus();
-    }, 80);
+      fileDrop.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      fileInput.focus();
+    }, 100);
     valido = false;
   }
 
@@ -198,36 +181,45 @@ btnEnviar.addEventListener('click', () => {
     return;
   }
 
-  /* ── Construir desglose de productos y total ────────────── */
-  const total = carrito.reduce((sum, item) => sum + item.price, 0);
-  const desglose = carrito
-    .map(item => '• ' + item.name + ' (S/ ' + item.price.toFixed(2) + ')')
-    .join('%0A');
+  /* ── Construir mensaje de WhatsApp ──────────────────────── */
+  let total = 0;
+  let productLines = '';
+  cart.forEach(({ name, price, period }) => {
+    total += price;
+    productLines += `%0A   • ${name} — S/ ${price.toFixed(2)} x ${period}`;
+  });
 
-  /* ── Construir mensaje de WhatsApp (formato exacto) ─────── */
   const msg = [
     '🎬 *SOLICITUD DE ACTIVACIÓN — StreamVault*',
+    '',
     '👤 *Nombre:* ' + nombre,
     '🔑 *PIN de perfil:* ' + pin,
-    '📦 *Productos en la Canasta:*',
-    desglose,
-    '💰 *Monto Total Pagado:* S/ ' + total.toFixed(2),
+    '',
+    '📦 *Productos:*' + productLines,
+    '',
+    `💰 *Total: S/ ${total.toFixed(2)}*`,
+    '',
     '✅ *El pago ya fue realizado.*',
-    '📎 *(Adjunto el comprobante en este chat de WhatsApp)*',
+    '📎 *(Adjunto el comprobante en el chat)*',
+    '',
+    '_Gracias, espero confirmación_ 🙌',
   ].join('%0A');
 
-  const url = 'https://wa.me/' + WA_NUMBER + '?text=' + msg;
+  window.location.href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+});
 
-  // Redirección limpia — evita bloqueo de pop-up en navegadores móviles
-  window.location.href = url;
+/* ── Acordeón TOS ────────────────────────────────────────── */
+tosToggle.addEventListener('click', () => {
+  const isOpen = tosPanel.classList.toggle('open');
+  tosToggle.setAttribute('aria-expanded', isOpen);
 });
 
 /* ── Helpers ─────────────────────────────────────────────── */
 function showError(el) {
   el.classList.add('visible');
-  el.closest('.form-group, .section-card, .qr-panel')
-    ?.querySelector('input, .file-drop')
-    ?.focus();
+  const target = el.closest('.form-group, .section-card, .qr-panel')
+    ?.querySelector('input, .file-drop');
+  target?.focus();
 }
 function hideError(el) { el.classList.remove('visible'); }
 
