@@ -2,11 +2,98 @@
    StreamVault — script.js  (Access Vault Edition)
    ════════════════════════════════════════════════════════════ */
 
-/* ── Configuración ───────────────────────────────────────── */
-const WA_NUMBER = '943621317';   // ← tu número real 
+/* ── Configuración general ───────────────────────────────── */
+const WA_NUMBER = '943621317';   // ← tu número real
+
+/* ═══════════════════════════════════════════════════════════
+   ★  CATÁLOGO — edita aquí precio, stock y nombre de cada
+      producto. El HTML se actualiza automáticamente al cargar.
+   ═══════════════════════════════════════════════════════════
+   Campos por producto:
+     id       → debe coincidir con data-id de la tarjeta HTML
+     name     → nombre que aparece en el resumen y WhatsApp
+     price    → precio en soles (número)
+     period   → texto del período (solo informativo)
+     stock    → unidades disponibles (0 = bloqueado)
+═══════════════════════════════════════════════════════════ */
+const CATALOG = {
+  netflix: {
+    name:   'Netflix Premium',
+    price:  14,
+    period: '30 días',
+    stock:  4,
+  },
+  hbo: {
+    name:   'HBO Max Premium',
+    price:  6,
+    period: '30 días',
+    stock:  3,
+  },
+    combo: {
+    name:   'Combo Netflix + HBO Max',
+    price:  20,
+    period: '30 días',
+    stock:  3,
+  },
+  netflix1: {
+    name:   'Netflix 1 Dispositivo',
+    price:  10,
+    period: '30 días',
+    stock:  8,          // ← 0 = tarjeta bloqueada automáticamente
+  },
+  duolingo: {
+    name:   'Duolingo Vidas Infinitas',
+    price:  3,
+    period: '30 días',
+    stock:  22,
+  },
+  spotify: {
+    name:   'Activación de Spotify',
+    price:  16,
+    period: '30 días',
+    stock:  999,       // ← stock infinito (usa un número muy alto) 
+  }
+
+};
+
+/* ── Inyectar datos del catálogo en el HTML ──────────────── */
+function initCatalog() {
+  document.querySelectorAll('.vault-card').forEach(card => {
+    const id   = card.dataset.id;
+    const item = CATALOG[id];
+    if (!item) return;
+
+    // Actualizar data-attributes usados por el carrito
+    card.dataset.name   = item.name;
+    card.dataset.price  = item.price;
+    card.dataset.period = item.period;
+
+    // Actualizar precio visible
+    const amountEl = card.querySelector('.v-amount');
+    if (amountEl) amountEl.textContent = item.price;
+
+    // Actualizar badge de stock
+    const stockEl = card.querySelector('.vault-stock');
+    if (stockEl) {
+      if (item.stock <= 0) {
+        stockEl.textContent = 'Agotado';
+        stockEl.classList.add('out-of-stock');
+      } else {
+        stockEl.textContent = item.stock + ' disp.';
+        stockEl.classList.remove('out-of-stock');
+      }
+    }
+
+    // Bloquear tarjeta si stock = 0
+    if (item.stock <= 0) {
+      card.classList.add('vault-disabled');
+      card.setAttribute('aria-disabled', 'true');
+      card.setAttribute('tabindex', '-1');
+    }
+  });
+}
 
 /* ── Carrito ─────────────────────────────────────────────── */
-// Mapa: id → { name, price, period }
 const cart = new Map();
 
 /* ── Referencias DOM ─────────────────────────────────────── */
@@ -44,6 +131,12 @@ vaultCards.forEach(card => {
 });
 
 function toggleCard(card) {
+  // Ignorar si está bloqueada por stock 0
+  if (card.classList.contains('vault-disabled')) {
+    showToast('❌  Este producto está agotado');
+    return;
+  }
+
   const id     = card.dataset.id;
   const name   = card.dataset.name;
   const price  = parseFloat(card.dataset.price);
@@ -141,27 +234,22 @@ btnEnviar.addEventListener('click', () => {
   const pin     = inputPin.value.trim();
   const archivo = fileInput.files[0];
 
-  // Validar carrito
   if (cart.size === 0) {
     showToast('⚠️  Elige al menos un producto');
-    // Scroll suave al catálogo
     document.querySelector('.vault-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     return;
   }
 
-  // Validar nombre
   if (!nombre) {
     showError(errNombre);
     valido = false;
   }
 
-  // Validar PIN
   if (!/^\d{4}$/.test(pin)) {
     showError(errPin);
     valido = false;
   }
 
-  // Validar comprobante
   if (!archivo) {
     if (!qrPanel.classList.contains('open')) {
       qrPanel.classList.add('open');
@@ -181,7 +269,17 @@ btnEnviar.addEventListener('click', () => {
     return;
   }
 
-  /* ── Construir mensaje de WhatsApp ──────────────────────── */
+  // --- CÁLCULO DE FECHA DE CORTE (SOLO ESTO SE AGREGA) ---
+  const fechaHoy = new Date();
+  const fechaCorte = new Date(fechaHoy);
+  fechaCorte.setDate(fechaHoy.getDate() + 30);
+  
+  const dia = String(fechaCorte.getDate()).padStart(2, '0');
+  const mes = String(fechaCorte.getMonth() + 1).padStart(2, '0');
+  const anio = fechaCorte.getFullYear();
+  const fechaCorteFormateada = `${dia}/${mes}/${anio}`;
+  // ───────────────────────────────────────────────────────
+
   let total = 0;
   let productLines = '';
   cart.forEach(({ name, price, period }) => {
@@ -198,6 +296,7 @@ btnEnviar.addEventListener('click', () => {
     '📦 *Productos:*' + productLines,
     '',
     `💰 *Total: S/ ${total.toFixed(2)}*`,
+    '📅 *Fecha de Corte:* ' + fechaCorteFormateada, // <-- Único cambio en tu mensaje
     '',
     '✅ *El pago ya fue realizado.*',
     '📎 *(Adjunto el comprobante en el chat)*',
@@ -207,7 +306,6 @@ btnEnviar.addEventListener('click', () => {
 
   window.location.href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
 });
-
 /* ── Acordeón TOS ────────────────────────────────────────── */
 tosToggle.addEventListener('click', () => {
   const isOpen = tosPanel.classList.toggle('open');
@@ -230,3 +328,6 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
 }
+
+/* ── Init ────────────────────────────────────────────────── */
+initCatalog();
