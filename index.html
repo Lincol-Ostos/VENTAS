@@ -6,98 +6,149 @@
   <title>StreamVault — Cuentas Premium</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+  <!-- textura de fondo -->
+  <div class="grain"></div>
 
   <div class="page-wrapper">
 
     <!-- NAVBAR -->
     <nav class="navbar">
-      <div class="logo">Stream<span>Vault</span></div>
+      <div class="logo">Stream<span>Vault🇫🇷</span></div>
       <div class="status-badge">
         <div class="pulse-dot"></div>
         Servicio en línea
       </div>
     </nav>
 
-    <!-- BENTO GRID — CATÁLOGO -->
-    <section class="catalog-label">
-      <span>Elige tu plan</span>
+    <!-- HERO / CATÁLOGO -->
+    <section class="catalog-header">
+      <p class="catalog-eyebrow">Catálogo activo</p>
+      <h1 class="catalog-title">Elige tu plan</h1>
+      <p class="catalog-sub">Selecciona una o varias plataformas. El acceso se activa al confirmar tu pago.</p>
     </section>
 
-    <div class="bento-grid">
+    <div class="vault-grid">
 
       <!-- PRODUCTO 1 — Netflix Premium -->
-      <div class="bento-card" data-id="netflix" data-name="Netflix Premium" data-price="15" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
-        <div class="bento-visual">
-          <img src="NPOSTER02.jpg" alt="Netflix Premium" class="bento-img" />
-          <div class="bento-fade"></div>
-          <div class="bento-stock" id="stockNetflix">✦ 5 disp.</div>
-          <div class="bento-check">
+      <article class="vault-card" data-id="netflix" data-name="Netflix Premium" data-price="15" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
+        <div class="vault-card-top">
+          <div class="vault-poster">
+            <img src="Netflix03.jpg" alt="Netflix Premium" class="vault-img" loading="lazy" />
+            <div class="vault-poster-fade"></div>
+          </div>
+          <div class="vault-stock" data-brand="netflix" id="stockNetflix">5 disp.</div>
+          <div class="vault-seal">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
           </div>
         </div>
-        <div class="bento-data">
-          <div class="bento-brand">Netflix</div>
-          <div class="bento-tier">Premium</div>
-          <p class="bento-restriction">Límite 1 disp. • No uso simultáneo</p>
-          <div class="bento-price-row">
-            <span class="b-currency">S/</span>
-            <span class="b-amount">15</span>
-            <span class="b-period">/ 30 días</span>
+        <div class="vault-perf" aria-hidden="true"></div>
+        <div class="vault-info">
+          <div class="vault-id-row">
+            <span class="vault-tag">ACCESO · 01</span>
+            <span class="vault-tier">Premium</span>
+          </div>
+          <div class="vault-brand">Netflix</div>
+          <p class="vault-restriction">Límite 1 disp. · No uso simultáneo</p>
+          <div class="vault-price-row">
+            <span class="v-currency">S/</span>
+            <span class="v-amount">15</span>
+            <span class="v-period">/ 30d</span>
           </div>
         </div>
-      </div>
+      </article>
 
       <!-- PRODUCTO 2 — HBO Max -->
-      <div class="bento-card" data-id="hbo" data-name="HBO Max Premium" data-price="12" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
-        <div class="bento-visual">
-          <img src="HPOSTER01.jpg" alt="HBO Max Premium" class="bento-img" />
-          <div class="bento-fade"></div>
-          <div class="bento-stock">✦ 3 disp.</div>
-          <div class="bento-check">
+      <article class="vault-card" data-id="hbo" data-name="HBO Max Premium" data-price="12" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
+        <div class="vault-card-top">
+          <div class="vault-poster">
+            <img src="MAX02.jpg" alt="HBO Max Premium" class="vault-img" loading="lazy" />
+            <div class="vault-poster-fade"></div>
+          </div>
+          <div class="vault-stock" data-brand="hbo">3 disp.</div>
+          <div class="vault-seal">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
           </div>
         </div>
-        <div class="bento-data">
-          <div class="bento-brand">HBO Max</div>
-          <div class="bento-tier">Premium</div>
-          <p class="bento-restriction">Límite 1 disp. • Reproducción HD/4K</p>
-          <div class="bento-price-row">
-            <span class="b-currency">S/</span>
-            <span class="b-amount">12</span>
-            <span class="b-period">/ 30 días</span>
+        <div class="vault-perf" aria-hidden="true"></div>
+        <div class="vault-info">
+          <div class="vault-id-row">
+            <span class="vault-tag">ACCESO · 02</span>
+            <span class="vault-tier">Premium</span>
+          </div>
+          <div class="vault-brand">HBO Max</div>
+          <p class="vault-restriction">Límite 1 disp. · Reproducción HD/4K</p>
+          <div class="vault-price-row">
+            <span class="v-currency">S/</span>
+            <span class="v-amount">12</span>
+            <span class="v-period">/ 30d</span>
           </div>
         </div>
-      </div>
+      </article>
+
+      <!-- PRODUCTO 3 — Netflix 1Dispositivo-->
+      <article class="vault-card" data-id="netflix1" data-name="Netflix 1 Dispositivo" data-price="15" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
+        <div class="vault-card-top">
+          <div class="vault-poster">
+            <img src="Net1disp.jpg" alt="Netflix 1 Dispositivo" class="vault-img" loading="lazy" />
+            <div class="vault-poster-fade"></div>
+          </div>
+          <div class="vault-stock" data-brand="netflix1"> 0 disponibles.</div>
+          <div class="vault-seal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+        </div>
+        <div class="vault-perf" aria-hidden="true"></div>
+        <div class="vault-info">
+          <div class="vault-id-row">
+            <span class="vault-tag">ACCESO · 02</span>
+            <span class="vault-tier">Premium</span>
+          </div>
+          <div class="vault-brand">Netflix</div>
+          <p class="vault-restriction">Límite 1 dispositivos. · Reproducción HD/4K</p>
+          <div class="vault-price-row">
+            <span class="v-currency">S/</span>
+            <span class="v-amount">11</span>
+            <span class="v-period">/ 30d</span>
+          </div>
+        </div>
+      </article>
 
       <!-- PRODUCTO 3 — Combo (full width) -->
-      <div class="bento-card bento-wide" data-id="combo" data-name="Combo Netflix + HBO Max" data-price="25" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
-        <div class="bento-visual bento-visual-wide">
-          <img src="COMBO01.jpg" alt="Combo Netflix + HBO Max" class="bento-img" />
-          <div class="bento-fade"></div>
-          <div class="bento-combo-badge">✦ Combo Especial</div>
-          <div class="bento-check">
+      <article class="vault-card vault-wide" data-id="combo" data-name="Combo Netflix + HBO Max" data-price="25" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
+        <div class="vault-card-top vault-card-top-wide">
+          <div class="vault-poster vault-poster-wide">
+            <img src="COMBO3.jpg" alt="Combo Netflix + HBO Max" class="vault-img" loading="lazy" />
+            <div class="vault-poster-fade"></div>
+          </div>
+          <div class="vault-combo-badge">✦ Combo especial</div>
+          <div class="vault-seal">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
           </div>
         </div>
-        <div class="bento-data bento-data-wide">
+        <div class="vault-perf" aria-hidden="true"></div>
+        <div class="vault-info vault-info-wide">
           <div>
-            <div class="bento-brand">Netflix <span class="bento-plus">+</span> HBO Max</div>
-            <div class="bento-tier">Combo Premium</div>
-            <p class="bento-restriction">Cuentas estables • Máxima resolución</p>
+            <div class="vault-id-row">
+              <span class="vault-tag">ACCESO · 03</span>
+              <span class="vault-tier">Combo Premium</span>
+            </div>
+            <div class="vault-brand">Netflix <span class="vault-plus">+</span> HBO Max</div>
+            <p class="vault-restriction">Cuentas estables · Máxima resolución</p>
           </div>
-          <div class="bento-price-row">
-            <span class="b-currency">S/</span>
-            <span class="b-amount">25</span>
-            <span class="b-period">/ 30 días</span>
+          <div class="vault-price-row">
+            <span class="v-currency">S/</span>
+            <span class="v-amount">25</span>
+            <span class="v-period">/ 30d</span>
           </div>
         </div>
-      </div>
+      </article>
 
-    </div><!-- /bento-grid -->
+    </div><!-- /vault-grid -->
 
     <!-- RESUMEN DE COMPRA (oculto hasta selección) -->
     <div class="summary-card" id="summaryCard" aria-live="polite">
@@ -137,7 +188,7 @@
               <strong>Escanea y paga por Plin</strong>
               O transfiere directamente a este número:
             </div>
-            <div class="qr-wallet">💳 &nbsp;943 621 317 &nbsp;— &nbsp;Lincol Ostos.</div>
+            <div class="qr-wallet">943 621 317 — Lincol Ostos.</div>
           </div>
         </div>
 

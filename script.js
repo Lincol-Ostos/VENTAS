@@ -1,16 +1,16 @@
 /* ════════════════════════════════════════════════════════════
-   StreamVault — script.js  (Bento Cart Edition)
+   StreamVault — script.js  (Access Vault Edition)
    ════════════════════════════════════════════════════════════ */
 
 /* ── Configuración ───────────────────────────────────────── */
-const WA_NUMBER = '943621317';   // ← tu número real (sin +)
+const WA_NUMBER = '943621317';   // ← tu número real 
 
 /* ── Carrito ─────────────────────────────────────────────── */
 // Mapa: id → { name, price, period }
 const cart = new Map();
 
 /* ── Referencias DOM ─────────────────────────────────────── */
-const bentoCards   = document.querySelectorAll('.bento-card');
+const vaultCards   = document.querySelectorAll('.vault-card');
 const summaryCard  = document.getElementById('summaryCard');
 const summaryLines = document.getElementById('summaryLines');
 const summaryTotal = document.getElementById('summaryTotal');
@@ -32,8 +32,8 @@ const errFile      = document.getElementById('errorFile');
 const tosToggle    = document.getElementById('tosToggle');
 const tosPanel     = document.getElementById('tosPanel');
 
-/* ── Bento Cards — selección de productos ────────────────── */
-bentoCards.forEach(card => {
+/* ── Vault Cards — selección de productos ────────────────── */
+vaultCards.forEach(card => {
   card.addEventListener('click', () => toggleCard(card));
   card.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -77,7 +77,7 @@ function updateSummary() {
     const line = document.createElement('div');
     line.className = 'summary-line';
     line.innerHTML = `
-      <span class="summary-line-name">${name} <span style="color:var(--text-dim);font-size:11px;">· ${period}</span></span>
+      <span class="summary-line-name">${name} <span style="color:var(--t2);font-size:11px;">· ${period}</span></span>
       <span class="summary-line-price">S/ ${price.toFixed(2)}</span>
     `;
     summaryLines.appendChild(line);
@@ -113,7 +113,7 @@ fileInput.addEventListener('change', () => {
 /* Drag & Drop */
 fileDrop.addEventListener('dragover', e => {
   e.preventDefault();
-  fileDrop.style.borderColor = 'var(--accent-a)';
+  fileDrop.style.borderColor = 'var(--amber)';
 });
 fileDrop.addEventListener('dragleave', () => {
   fileDrop.style.borderColor = '';
@@ -145,7 +145,7 @@ btnEnviar.addEventListener('click', () => {
   if (cart.size === 0) {
     showToast('⚠️  Elige al menos un producto');
     // Scroll suave al catálogo
-    document.querySelector('.bento-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelector('.vault-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     return;
   }
 
