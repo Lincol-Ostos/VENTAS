@@ -49,7 +49,7 @@ const CATALOG = {
   }, 
   paramount: {
     name:   'Paramount+',
-    price:  13.5,
+    price:  12,
     period: '30 días',
     stock:  5,
   },
