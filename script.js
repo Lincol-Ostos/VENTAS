@@ -46,6 +46,12 @@ const CATALOG = {
     price:  3,
     period: '30 días',
     stock:  22,
+  }, 
+  paramount: {
+    name:   'Paramount+',
+    price:  12,
+    period: '30 días',
+    stock:  5,
   },
   spotify: {
     name:   'Activación de Spotify',
