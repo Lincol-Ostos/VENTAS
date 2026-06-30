@@ -7,37 +7,37 @@
 ════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Fondos — negro cálido, no azulado */
-  --bg:    #08090b;
-  --s1:    #101214;   /* tarjetas base     */
-  --s2:    #17191c;   /* inputs, sub-capas */
-  --s3:    #1f2225;   /* hover states      */
+  /* Fondos — crema luminoso, no blanco frío */
+  --bg:    #faf8f4;
+  --s1:    #ffffff;   /* tarjetas base     */
+  --s2:    #f3f0ea;   /* inputs, sub-capas */
+  --s3:    #ece7dd;   /* hover states      */
 
   /* Bordes */
-  --b0: rgba(245,241,232,0.07);
-  --b1: rgba(245,241,232,0.13);
-  --b2: rgba(245,241,232,0.20);
+  --b0: rgba(28,26,20,0.08);
+  --b1: rgba(28,26,20,0.13);
+  --b2: rgba(28,26,20,0.20);
 
-  /* Acento ÚNICO — ámbar vault */
-  --amber:      #d4a857;
-  --amber-dim:  rgba(212,168,87,0.12);
-  --amber-glow: rgba(212,168,87,0.28);
-  --amber-ink:  #1a1407;
+  /* Acento ÚNICO — bronce elegante */
+  --amber:      #a87a3f;
+  --amber-dim:  rgba(168,122,63,0.10);
+  --amber-glow: rgba(168,122,63,0.24);
+  --amber-ink:  #fffaf0;
 
-  /* Texto — cálido, no azul-gris */
-  --t0: #f5f1e8;
-  --t1: rgba(245,241,232,0.70);
-  --t2: rgba(245,241,232,0.42);
-  --t3: rgba(245,241,232,0.26);
+  /* Texto — tinta cálida, no negro puro */
+  --t0: #221d15;
+  --t1: rgba(34,29,21,0.72);
+  --t2: rgba(34,29,21,0.48);
+  --t3: rgba(34,29,21,0.32);
 
   /* Estado: verde salvia, no semáforo */
-  --sage: #7da888;
-  --sage-lo: rgba(125,168,136,0.12);
+  --sage: #5c8a6c;
+  --sage-lo: rgba(92,138,108,0.10);
 
   /* Marca, solo para acentos de stock */
   --netflix: #c23b3b;
   
-  --hbo: #9b6fd1;
+  --hbo: #8a5fc2;
 
   /* Radios — deliberadamente bajos; el corte de esquina hace el trabajo visual */
   --r-card: 4px;
@@ -68,7 +68,7 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -215,16 +215,16 @@ body {
 .vault-card:hover {
   transform: translateY(-2px);
   border-color: var(--b1);
-  box-shadow: 0 14px 36px rgba(0,0,0,0.55);
+  box-shadow: 0 14px 32px rgba(28,26,20,0.12);
 }
 .vault-card:focus-visible { box-shadow: 0 0 0 3px var(--amber); }
 
 .vault-card.selected {
   border-color: var(--amber);
   box-shadow:
-    0 0 0 1px rgba(212,168,87,0.45),
-    0 10px 30px rgba(212,168,87,0.14),
-    0 4px 16px rgba(0,0,0,0.4);
+    0 0 0 1px rgba(168,122,63,0.5),
+    0 10px 26px rgba(168,122,63,0.16),
+    0 4px 14px rgba(28,26,20,0.08);
 }
 
 /* Tarjeta bloqueada — stock agotado */
@@ -279,7 +279,7 @@ body {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 55%;
-  background: linear-gradient(to top, var(--s1) 0%, rgba(16,18,20,0.7) 55%, transparent 100%);
+  background: linear-gradient(to top, var(--s1) 0%, rgba(255,255,255,0.55) 55%, transparent 100%);
   pointer-events: none;
 }
 
@@ -338,7 +338,7 @@ body {
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  box-shadow: 0 2px 10px rgba(212,168,87,0.5);
+  box-shadow: 0 2px 10px rgba(168,122,63,0.45);
 }
 .vault-seal svg { width: 14px; height: 14px; color: var(--amber-ink); }
 .vault-card.selected .vault-seal {
@@ -563,7 +563,7 @@ body {
 .qr-frame {
   border-radius: var(--r-mod);
   padding: 1px;
-  background: linear-gradient(90deg, var(--amber), rgba(245,241,232,0.25), var(--amber));
+  background: linear-gradient(90deg, var(--amber), rgba(168,122,63,0.25), var(--amber));
   background-size: 200% auto;
 }
 .qr-inner {
@@ -575,6 +575,7 @@ body {
 .qr-svg-wrapper {
   display: inline-block;
   background: #fff;
+  border: 1px solid var(--b0);
   border-radius: var(--r-el);
   padding: 12px;
   margin-bottom: 13px;
@@ -685,17 +686,17 @@ body {
   position: relative;
   overflow: hidden;
   transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease), background 0.16s var(--ease);
-  box-shadow: 0 4px 20px rgba(212,168,87,0.25), 0 1px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 18px rgba(168,122,63,0.22), 0 1px 3px rgba(28,26,20,0.08);
 }
 .btn-main:hover {
-  background: #e0b766;
+  background: #93693a;
   transform: translateY(-1px);
-  box-shadow: 0 8px 28px rgba(212,168,87,0.35), 0 2px 8px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 24px rgba(168,122,63,0.3), 0 2px 6px rgba(28,26,20,0.1);
 }
 .btn-main:active {
   transform: scale(0.98);
-  background: #c39645;
-  box-shadow: 0 2px 8px rgba(212,168,87,0.2);
+  background: #7f5b30;
+  box-shadow: 0 2px 8px rgba(168,122,63,0.18);
 }
 .btn-main > * { position: relative; z-index: 1; }
 
@@ -750,7 +751,89 @@ body {
   flex-shrink: 0;
 }
 
-/* ── Errores ─────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════
+   BARRA FIJA DE CHECKOUT
+════════════════════════════════════════════════════════ */
+.checkout-bar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 90;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px env(safe-area-inset-bottom, 0px);
+  pointer-events: none;
+  transform: translateY(120%);
+  opacity: 0;
+  transition: transform 0.4s var(--ease), opacity 0.3s var(--ease);
+}
+.checkout-bar.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+/* Se oculta suavemente cuando el footer entra en pantalla, para no taparlo */
+.checkout-bar.hide-for-footer {
+  transform: translateY(120%);
+  opacity: 0;
+  pointer-events: none;
+}
+.checkout-bar-inner {
+  width: 100%;
+  max-width: 430px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--b1);
+  border-radius: 100px;
+  padding: 9px 9px 9px 18px;
+  box-shadow: 0 12px 34px rgba(28,26,20,0.16), 0 2px 8px rgba(28,26,20,0.06);
+}
+.checkout-bar-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  min-width: 0;
+}
+.checkout-bar-label {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--t2);
+}
+.checkout-bar-total {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--t0);
+  letter-spacing: -0.3px;
+}
+.checkout-bar-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  background: var(--amber);
+  color: var(--amber-ink);
+  border: none;
+  border-radius: 100px;
+  padding: 12px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  cursor: pointer;
+  transition: background 0.18s var(--ease), transform 0.16s var(--ease);
+}
+.checkout-bar-btn:hover { background: #93693a; transform: translateY(-1px); }
+.checkout-bar-btn:active { transform: scale(0.97); }
+
+
 .error-msg { font-size: 12px; color: #e0635a; margin-top: 6px; display: none; }
 .error-msg.visible { display: block; }
 
@@ -761,15 +844,15 @@ body {
   left: 50%;
   transform: translateX(-50%) translateY(16px);
   max-width: calc(100vw - 32px);
-  background: rgba(23,25,28,0.94);
+  background: rgba(34,29,21,0.92);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--b1);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 100px;
   padding: 11px 22px;
   font-size: 13.5px;
   font-weight: 500;
-  color: var(--t0);
+  color: #faf8f4;
   opacity: 0;
   transition: all 0.3s var(--ease);
   z-index: 100;
@@ -777,9 +860,10 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   pointer-events: none;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 28px rgba(28,26,20,0.22);
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+body.has-checkout-bar .toast { bottom: 96px; }
 
 /* ── Divider / Footer ────────────────────────────────── */
 .divider { height: 1px; background: var(--b0); margin: 6px 0 16px; }

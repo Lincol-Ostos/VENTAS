@@ -92,7 +92,6 @@
       </article>
 
 
-
       <!-- PRODUCTO 2 — HBO Max -->
       <article class="vault-card" data-id="hbo" data-name="HBO Max Premium" data-price="12" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
         <div class="vault-card-top">
@@ -120,6 +119,8 @@
           </div>
         </div>
       </article>
+
+      
 
       <!-- PRODUCTO 3 — Netflix 1Dispositivo-->
       <article class="vault-card" data-id="netflix1" data-name="Netflix 1 Dispositivo" data-price="15" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
@@ -149,6 +150,9 @@
         </div>
       </article>
 
+       
+
+    
        <!-- PRODUCTO 4 — Duolingo Vidas Infnitas-->
       <article class="vault-card" data-id="duolingo" data-name="Duolingo Vidas Infinitas" data-price="15" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
         <div class="vault-card-top">
@@ -176,6 +180,35 @@
           </div>
         </div>
       </article>
+      
+ <!-- PRODUCTO 4 — YOUTUBE PREMIUM-->
+      <article class="vault-card" data-id="youtube" data-name="YouTube Premium" data-price="15" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
+        <div class="vault-card-top">
+          <div class="vault-poster">
+            <img src="YOUTUBE.jpg" alt="YouTube Premium" class="vault-img" loading="lazy" />
+            <div class="vault-poster-fade"></div>
+          </div>
+          <div class="vault-stock" data-brand="youtube"> 0 disponibles.</div>
+          <div class="vault-seal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+        </div>
+        <div class="vault-perf" aria-hidden="true"></div>
+        <div class="vault-info">
+          <div class="vault-id-row">
+            <span class="vault-tag">SUPER PROMO</span>
+            <span class="vault-tier"></span>
+          </div>
+          <div class="vault-brand">YouTube</div>
+          <p class="vault-restriction">YouTube Premium - Sin anuncios</p>
+          <div class="vault-price-row">
+            <span class="v-currency">S/</span>
+            <span class="v-amount">15</span>
+            <span class="v-period">/ 30d</span>
+          </div>
+        </div>
+      </article>
+
 
        <!-- PRODUCTO 5 — Activación de spotify-->
       <article class="vault-card" data-id="spotify" data-name="Activación de Spotify" data-price="15" data-period="30 días" tabindex="0" role="button" aria-pressed="false">
@@ -341,6 +374,20 @@
     <div class="footer">StreamVault · Entregas automáticas 24/7 &nbsp;·&nbsp; <span>©</span> 2025</div>
 
   </div><!-- /page-wrapper -->
+
+  <!-- BARRA FIJA DE CHECKOUT -->
+  <div class="checkout-bar" id="checkoutBar" aria-hidden="true">
+    <div class="checkout-bar-inner">
+      <div class="checkout-bar-info">
+        <span class="checkout-bar-label" id="checkoutBarLabel">0 productos</span>
+        <span class="checkout-bar-total" id="checkoutBarTotal">S/ 0</span>
+      </div>
+      <button class="checkout-bar-btn" id="checkoutBarBtn" type="button">
+        Ir a pagar
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+  </div>
 
   <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
 

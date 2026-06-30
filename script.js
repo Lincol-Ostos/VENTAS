@@ -47,9 +47,15 @@ const CATALOG = {
     period: '30 días',
     stock:  22,
   }, 
+  youtube: {
+    name:   'YouTube Premium',
+    price:  5.50,
+    period: '30 días',
+    stock:  7,
+  },
   paramount: {
     name:   'Paramount+',
-    price:  13.50,
+    price:  13,
     period: '30 días',
     stock:  5,
   },
@@ -125,6 +131,12 @@ const errFile      = document.getElementById('errorFile');
 const tosToggle    = document.getElementById('tosToggle');
 const tosPanel     = document.getElementById('tosPanel');
 
+const checkoutBar      = document.getElementById('checkoutBar');
+const checkoutBarLabel = document.getElementById('checkoutBarLabel');
+const checkoutBarTotal = document.getElementById('checkoutBarTotal');
+const checkoutBarBtn   = document.getElementById('checkoutBarBtn');
+const footerEl         = document.querySelector('.footer');
+
 /* ── Vault Cards — selección de productos ────────────────── */
 vaultCards.forEach(card => {
   card.addEventListener('click', () => toggleCard(card));
@@ -164,6 +176,7 @@ function toggleCard(card) {
 function updateSummary() {
   if (cart.size === 0) {
     summaryCard.classList.remove('visible');
+    hideCheckoutBar();
     return;
   }
 
@@ -183,6 +196,44 @@ function updateSummary() {
   });
 
   summaryTotal.textContent = `S/ ${total.toFixed(2)}`;
+
+  checkoutBarLabel.textContent = `${cart.size} ${cart.size === 1 ? 'producto' : 'productos'}`;
+  checkoutBarTotal.textContent = `S/ ${total.toFixed(2)}`;
+  showCheckoutBar();
+}
+
+/* ── Barra fija de checkout ──────────────────────────────── */
+function showCheckoutBar() {
+  checkoutBar.classList.add('visible');
+  checkoutBar.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('has-checkout-bar');
+}
+function hideCheckoutBar() {
+  checkoutBar.classList.remove('visible');
+  checkoutBar.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('has-checkout-bar');
+}
+
+checkoutBarBtn.addEventListener('click', () => {
+  if (!qrPanel.classList.contains('open')) {
+    qrPanel.classList.add('open');
+    btnToggle.classList.add('active');
+    btnToggle.setAttribute('aria-expanded', 'true');
+  }
+  btnToggle.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+
+/* Ocultar la barra suavemente al acercarse al footer, para no taparlo */
+if (footerEl && 'IntersectionObserver' in window) {
+  const footerObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        checkoutBar.classList.toggle('hide-for-footer', entry.isIntersecting);
+      });
+    },
+    { root: null, threshold: 0.15 }
+  );
+  footerObserver.observe(footerEl);
 }
 
 /* ── Toggle panel QR ─────────────────────────────────────── */
