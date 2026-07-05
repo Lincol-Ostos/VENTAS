@@ -7,37 +7,37 @@
 ════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Fondos — crema luminoso, no blanco frío */
-  --bg:    #faf8f4;
-  --s1:    #ffffff;   /* tarjetas base     */
-  --s2:    #f3f0ea;   /* inputs, sub-capas */
-  --s3:    #ece7dd;   /* hover states      */
+  /* Fondos — azul marino profundo de la paleta */
+  --bg:    #262f35;
+  --s1:    #313b42;   /* tarjetas base     */
+  --s2:    #3a454c;   /* inputs, sub-capas */
+  --s3:    #44515a;   /* hover states      */
 
-  /* Bordes */
-  --b0: rgba(28,26,20,0.08);
-  --b1: rgba(28,26,20,0.13);
-  --b2: rgba(28,26,20,0.20);
+  /* Bordes — tinte durazno cálido sobre el marino */
+  --b0: rgba(238,200,169,0.10);
+  --b1: rgba(238,200,169,0.16);
+  --b2: rgba(238,200,169,0.24);
 
-  /* Acento ÚNICO — bronce elegante */
-  --amber:      #a87a3f;
-  --amber-dim:  rgba(168,122,63,0.10);
-  --amber-glow: rgba(168,122,63,0.24);
-  --amber-ink:  #fffaf0;
+  /* Acento ÚNICO — verde salvia de la paleta */
+  --amber:      #9bb196;
+  --amber-dim:  rgba(155,177,150,0.12);
+  --amber-glow: rgba(155,177,150,0.26);
+  --amber-ink:  #1c2420;
 
-  /* Texto — tinta cálida, no negro puro */
-  --t0: #221d15;
-  --t1: rgba(34,29,21,0.72);
-  --t2: rgba(34,29,21,0.48);
-  --t3: rgba(34,29,21,0.32);
+  /* Texto — blanco cálido con tinte durazno */
+  --t0: #f3ece3;
+  --t1: rgba(243,236,227,0.72);
+  --t2: rgba(243,236,227,0.50);
+  --t3: rgba(243,236,227,0.34);
 
-  /* Estado: verde salvia, no semáforo */
-  --sage: #5c8a6c;
-  --sage-lo: rgba(92,138,108,0.10);
+  /* Estado: mismo verde salvia de la paleta */
+  --sage: #9bb196;
+  --sage-lo: rgba(155,177,150,0.14);
 
   /* Marca, solo para acentos de stock */
-  --netflix: #c23b3b;
+  --netflix: #d15261;
   
-  --hbo: #8a5fc2;
+  --hbo: #de847d;
 
   /* Radios — deliberadamente bajos; el corte de esquina hace el trabajo visual */
   --r-card: 4px;
@@ -215,16 +215,16 @@ body {
 .vault-card:hover {
   transform: translateY(-2px);
   border-color: var(--b1);
-  box-shadow: 0 14px 32px rgba(28,26,20,0.12);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.30);
 }
 .vault-card:focus-visible { box-shadow: 0 0 0 3px var(--amber); }
 
 .vault-card.selected {
   border-color: var(--amber);
   box-shadow:
-    0 0 0 1px rgba(168,122,63,0.5),
-    0 10px 26px rgba(168,122,63,0.16),
-    0 4px 14px rgba(28,26,20,0.08);
+    0 0 0 1px rgba(155,177,150,0.5),
+    0 10px 26px rgba(155,177,150,0.16),
+    0 4px 14px rgba(0,0,0,0.22);
 }
 
 /* Tarjeta bloqueada — stock agotado */
@@ -246,9 +246,9 @@ body {
 
 /* Badge de stock agotado */
 .vault-stock.out-of-stock {
-  color: #e0635a;
-  border-color: rgba(224,99,90,0.35);
-  background: rgba(224,99,90,0.12);
+  color: #d15261;
+  border-color: rgba(209,82,97,0.4);
+  background: rgba(209,82,97,0.16);
 }
 
 /* ── Visual ──────────────────────────────────────────── */
@@ -258,7 +258,7 @@ body {
   width: 100%;
   aspect-ratio: 16 / 11;
   overflow: hidden;
-  background: #0a0a0a;
+  background: #1a2024;
 }
 .vault-poster-wide { aspect-ratio: 16 / 7; }
 .vault-img {
@@ -279,7 +279,7 @@ body {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 55%;
-  background: linear-gradient(to top, var(--s1) 0%, rgba(255,255,255,0.55) 55%, transparent 100%);
+  background: linear-gradient(to top, var(--s1) 0%, rgba(49,59,66,0.7) 55%, transparent 100%);
   pointer-events: none;
 }
 
@@ -338,7 +338,7 @@ body {
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  box-shadow: 0 2px 10px rgba(168,122,63,0.45);
+  box-shadow: 0 2px 10px rgba(155,177,150,0.45);
 }
 .vault-seal svg { width: 14px; height: 14px; color: var(--amber-ink); }
 .vault-card.selected .vault-seal {
@@ -563,7 +563,7 @@ body {
 .qr-frame {
   border-radius: var(--r-mod);
   padding: 1px;
-  background: linear-gradient(90deg, var(--amber), rgba(168,122,63,0.25), var(--amber));
+  background: linear-gradient(90deg, var(--amber), rgba(155,177,150,0.25), var(--amber));
   background-size: 200% auto;
 }
 .qr-inner {
@@ -651,8 +651,8 @@ body {
 .form-input::placeholder { color: var(--t3); }
 .form-input:focus {
   border-color: var(--amber);
-  background: rgba(212,168,87,0.05);
-  box-shadow: 0 0 0 3px rgba(212,168,87,0.16);
+  background: rgba(155,177,150,0.10);
+  box-shadow: 0 0 0 3px rgba(155,177,150,0.20);
 }
 .pin-input {
   letter-spacing: 10px;
@@ -686,17 +686,17 @@ body {
   position: relative;
   overflow: hidden;
   transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease), background 0.16s var(--ease);
-  box-shadow: 0 4px 18px rgba(168,122,63,0.22), 0 1px 3px rgba(28,26,20,0.08);
+  box-shadow: 0 4px 18px rgba(155,177,150,0.22), 0 1px 3px rgba(0,0,0,0.22);
 }
 .btn-main:hover {
-  background: #93693a;
+  background: #87a382;
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(168,122,63,0.3), 0 2px 6px rgba(28,26,20,0.1);
+  box-shadow: 0 8px 24px rgba(155,177,150,0.3), 0 2px 6px rgba(0,0,0,0.26);
 }
 .btn-main:active {
   transform: scale(0.98);
-  background: #7f5b30;
-  box-shadow: 0 2px 8px rgba(168,122,63,0.18);
+  background: #748f70;
+  box-shadow: 0 2px 8px rgba(155,177,150,0.18);
 }
 .btn-main > * { position: relative; z-index: 1; }
 
@@ -785,13 +785,13 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  background: rgba(255,255,255,0.88);
+  background: rgba(49,59,66,0.85);
   backdrop-filter: blur(18px) saturate(160%);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
   border: 1px solid var(--b1);
   border-radius: 100px;
   padding: 9px 9px 9px 18px;
-  box-shadow: 0 12px 34px rgba(28,26,20,0.16), 0 2px 8px rgba(28,26,20,0.06);
+  box-shadow: 0 12px 34px rgba(0,0,0,0.34), 0 2px 8px rgba(0,0,0,0.18);
 }
 .checkout-bar-info {
   display: flex;
@@ -830,11 +830,11 @@ body {
   cursor: pointer;
   transition: background 0.18s var(--ease), transform 0.16s var(--ease);
 }
-.checkout-bar-btn:hover { background: #93693a; transform: translateY(-1px); }
+.checkout-bar-btn:hover { background: #87a382; transform: translateY(-1px); }
 .checkout-bar-btn:active { transform: scale(0.97); }
 
 
-.error-msg { font-size: 12px; color: #e0635a; margin-top: 6px; display: none; }
+.error-msg { font-size: 12px; color: #d15261; margin-top: 6px; display: none; }
 .error-msg.visible { display: block; }
 
 /* ── Toast ─────────────────────────────────────────────── */
@@ -844,15 +844,15 @@ body {
   left: 50%;
   transform: translateX(-50%) translateY(16px);
   max-width: calc(100vw - 32px);
-  background: rgba(34,29,21,0.92);
+  background: rgba(243,236,227,0.94);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(35,42,47,0.08);
   border-radius: 100px;
   padding: 11px 22px;
   font-size: 13.5px;
   font-weight: 500;
-  color: #faf8f4;
+  color: #232a2f;
   opacity: 0;
   transition: all 0.3s var(--ease);
   z-index: 100;
@@ -860,7 +860,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   pointer-events: none;
-  box-shadow: 0 8px 28px rgba(28,26,20,0.22);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.40);
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 body.has-checkout-bar .toast { bottom: 96px; }
